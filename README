@@ -1,0 +1,34 @@
+The library is licensed under the MIT License. See the LICENSE file for the full text.
+
+
+Using the library functions is simple.
+
+	#include "sha256.h"
+	
+	sha256_ctx context;                               // Declare a SHA-256 context
+	uint8_t hash [32];                                // A buffer capable of storing the hash
+	
+	sha256_init(&context);                            // Initialize the context
+	sha256_process(&context, string, strlen(string)); // Input some data and its length
+	sha256_final(&context, hash);                     // Finalize and output the hash to the supplied hash buffer
+
+
+Context initialization can also be done statically:
+
+	sha256_ctx context = SHA256_INIT;
+	
+
+Alternatively you can use the "simple" function, which processes a single buffer
+and outputs its hash in one function call:
+
+	uint8_t hash [32];
+	sha256_simple(string, strlen(string), hash);
+
+
+The interface for SHA-512 is similar, except it outputs a 64-byte hash.
+
+
+Internally SHA-256 processes the message in chunks of 64 bytes, and SHA-512 uses
+chunks of 128 bytes. The implementation may therefore store up to 64 or 128 bytes
+of the message, across multiple calls to the process functions, in temporary buffers.
+The temporary buffers are cleared upon finalization.
