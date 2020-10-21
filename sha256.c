@@ -136,8 +136,9 @@ void sha256_process(sha256_ctx *ctx, const uint8_t *data, size_t length)
 
 void sha256_final(sha256_ctx *ctx, uint8_t out [32])
 {
-	const char fill [56] = {
+	const char fill [64] = {
 		0x80, 0, 0, 0, 0, 0, 0, 0,
+		   0, 0, 0, 0, 0, 0, 0, 0,
 		   0, 0, 0, 0, 0, 0, 0, 0,
 		   0, 0, 0, 0, 0, 0, 0, 0,
 		   0, 0, 0, 0, 0, 0, 0, 0,
